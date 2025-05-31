@@ -30,34 +30,48 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 border rounded shadow">
-      <h2 className="text-xl font-bold mb-6">Anmeldung Administrator</h2>
-      <FormInput
-        label="Nom d'utilisateur"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="username"
-      />
-      <FormInput
-        label="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="admin@example.com"
-      />
-      <FormInput
-        label="Mot de passe"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="••••••••"
-      />
-      <CostumerButton label="Einloggen" onClick={handleLogin} />
-      <p className="mt-4">
-        Pas encore de compte ?{" "}
-        <Link to="/admin/register" className="text-blue-600 underline">
-          Créer un compte
-        </Link>
-      </p>
+    <div className="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+      <div className="w-100" style={{ maxWidth: "500px" }}>
+        <div className="p-4 border rounded shadow bg-white">
+          <h2 className="text-center text-primary fw-bold mb-4">
+            Anmeldung Administrator
+          </h2>
+
+          <FormInput
+            label="Nom d'utilisateur"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="username"
+          />
+          <FormInput
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="admin@example.com"
+          />
+          <FormInput
+            label="Mot de passe"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+          />
+
+          <div className="d-flex justify-content-center mt-3 mb-4">
+            <CostumerButton label="Einloggen" onClick={handleLogin} />
+          </div>
+
+          <p className="text-center text-sm">
+            Noch kein Konto?{" "}
+            <Link
+              to="/admin/register"
+              className="text-primary text-decoration-underline"
+            >
+              Konto erstellen
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

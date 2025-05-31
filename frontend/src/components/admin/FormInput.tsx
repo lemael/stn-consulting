@@ -3,9 +3,10 @@ import React from "react";
 type Props = {
   label: string;
   type?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  value?: string; // ✅ devient optionnel
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  name?: string;
 };
 
 const FormInput = ({
@@ -14,16 +15,19 @@ const FormInput = ({
   value,
   onChange,
   placeholder,
+  name,
 }: Props) => (
-  <div className="mb-4">
-    <label className="block text-sm font-medium mb-1">{label}</label>
-    <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      placeholder={placeholder}
-      className="border px-3 py-2 w-full rounded"
-    />
+  <div className="form-group row mb-3">
+    <label className="col-sm-4 col-form-label">{label}</label>
+    <div className="col-sm-8">
+      <input
+        type={type}
+        name={name}
+        placeholder={placeholder}
+        {...(value !== undefined && onChange ? { value, onChange } : {})} // ✅ condition : soit contrôlé, soit non contrôlé
+        className="form-control"
+      />
+    </div>
   </div>
 );
 

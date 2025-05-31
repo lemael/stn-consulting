@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
+import Logo from "../../components/Logo";
 
 // --- Inline CSS ---
 const GlobalStyle = createGlobalStyle`
@@ -56,10 +57,14 @@ const Dashboard = () => {
   return (
     <div className="min-vh-100 bg-light">
       <GlobalStyle />
-      <header className="custom-blue text-dark p-4">
-        <h1 className="h3 mb-0">Hallo!</h1>
-        <p className="mb-0">Willkommen in deinem persönlichen Bereich</p>
-      </header>
+      <header className="custom-blue text-dark p-4 d-flex align-items-center">
+        <Logo width={120} height={100} />
+
+        <div className="d-flex flex-column ms-3 gap-1">
+          <span className="h3 mb-0">Hallo!</span>
+          <span className="mb-0">Willkommen in dem Admin Bereich.</span>
+        </div>
+      </header>{" "}
       <main className="container py-4">
         <div className="row">
           {cards.map((card, index) => (

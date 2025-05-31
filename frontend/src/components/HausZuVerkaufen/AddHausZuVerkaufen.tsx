@@ -142,7 +142,7 @@ const AddHausZuVerkaufen = () => {
           <CostumerButton
             label="Veröffentlichen"
             onClick={handleCancel}
-            type="submit"
+            asSubmit={true}
           />
         </div>
       </form>
