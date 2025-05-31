@@ -1,11 +1,94 @@
-const AdminDashboard = () => {
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import { Button } from "../../components/Button";
+import { Card } from "../../components/Card";
+
+// --- Inline CSS ---
+const GlobalStyle = createGlobalStyle`
+  .custom-blue {
+    background-color: #85C1E9; /* Bootstrap $blue-300 approximation */
+  }
+
+.card:hover {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+};
+`;
+
+// --- Dashboard Page ---
+const Dashboard = () => {
+  const cards = [
+    {
+      title: "Nachrichten",
+      subtitle: "Senden und empfangen",
+      badge: "Neu",
+      link: "/admin/nachrichten",
+    },
+
+    {
+      title: "Immo hinzufügen",
+      subtitle: "Add eine Immobilien",
+      link: "/add",
+    },
+    {
+      title: "Immobilien bewerten",
+      subtitle: "In 3 Minuten",
+      link: "/admin/bewertung",
+    },
+    {
+      title: "Anzeigen",
+      subtitle: "Anzeigen verwalten",
+      link: "/admin/anzeigen",
+    },
+    {
+      title: "Finanzierung",
+      subtitle: "Schätze die Höhe deiner Hypothek",
+      link: "/admin/finanzierung",
+    },
+
+    {
+      title: "Konto",
+      subtitle: "Persönliche Daten und mehr",
+      link: "/admin/konto",
+    },
+  ];
+  const navigate = useNavigate();
   return (
-    <div>
-      <h1>Dashboard Administrator</h1>
-      <p>Willkommen, Sie sind eingeloggt!</p>
-      {/* Tu peux y afficher les statistiques, la liste complète des maisons, etc. */}
+    <div className="min-vh-100 bg-light">
+      <GlobalStyle />
+      <header className="custom-blue text-dark p-4">
+        <h1 className="h3 mb-0">Hallo!</h1>
+        <p className="mb-0">Willkommen in deinem persönlichen Bereich</p>
+      </header>
+      <main className="container py-4">
+        <div className="row">
+          {cards.map((card, index) => (
+            <div key={index} className="col-12 col-sm-6 col-md-4">
+              <Card onClick={() => navigate(card.link)}>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <h5 className="card-title mb-0">{card.title}</h5>
+                  {card.badge && (
+                    <span className="badge bg-dark text-white">
+                      {card.badge}
+                    </span>
+                  )}
+                </div>
+                <p className="card-text text-muted small">{card.subtitle}</p>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </main>
+      <footer className="container text-end py-3">
+        <Button
+          variant="outline-secondary"
+          onClick={() => navigate("/admin/login")}
+        >
+          Abmelden
+        </Button>
+      </footer>
     </div>
   );
 };
 
-export default AdminDashboard;
+export default Dashboard;

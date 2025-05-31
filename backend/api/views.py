@@ -24,13 +24,14 @@ from .serializers import RegisterSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import AllowAny
 
 class HausZuVerkaufenViewSet(ModelViewSet):
     queryset = HausZuVerkaufen.objects.all()
     serializer_class = HausZuVerkaufenSerializer
 
 class RegisterView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():

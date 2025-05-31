@@ -6,11 +6,8 @@ const ErstellungAdminPage = () => {
     username: "",
     email: "",
     password: "",
-    is_staff: false,
-    is_superuser: false,
   });
 
-  const [token, setToken] = useState(""); // 💡 ici tu colles ton token admin (à automatiser avec login plus tard)
   const [message, setMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +23,7 @@ const ErstellungAdminPage = () => {
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/register/",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+        formData
       );
       setMessage("Utilisateur créé avec succès ✅");
     } catch (error: any) {
@@ -64,21 +56,7 @@ const ErstellungAdminPage = () => {
         onChange={handleChange}
       />
       <br />
-      <label>
-        <input type="checkbox" name="is_staff" onChange={handleChange} />
-        is_staff
-      </label>
-      <br />
-      <label>
-        <input type="checkbox" name="is_superuser" onChange={handleChange} />
-        is_superuser
-      </label>
-      <br />
-      <textarea
-        placeholder="Token admin"
-        onChange={(e) => setToken(e.target.value)}
-      />
-      <br />
+
       <button onClick={handleSubmit}>Créer</button>
       <p>{message}</p>
     </div>

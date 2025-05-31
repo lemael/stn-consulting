@@ -14,9 +14,7 @@ User = get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-    is_staff = serializers.BooleanField(default=True)
-    is_superuser = serializers.BooleanField(default=True)
-
+    
     class Meta:
         model = User
         fields = ('username', 'email', 'password')

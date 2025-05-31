@@ -13,7 +13,7 @@ const AdminLogin = () => {
   const handleLogin = async () => {
     console.log({ username, email, password });
     await axios
-      .post("http://127.0.0.1:8000/api/adminUsers/", {
+      .post("http://127.0.0.1:8000/api/login/", {
         email,
         username,
         password,
