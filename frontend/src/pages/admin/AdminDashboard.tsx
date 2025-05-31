@@ -23,34 +23,34 @@ const Dashboard = () => {
       title: "Nachrichten",
       subtitle: "Senden und empfangen",
       badge: "Neu",
-      link: "/admin/nachrichten",
+      link: "/admin/dashboard/nachrichten",
     },
 
     {
       title: "Immo hinzufügen",
       subtitle: "Add eine Immobilien",
-      link: "/add",
+      link: "/admin/dashboard/add",
     },
     {
       title: "Immobilien bewerten",
       subtitle: "In 3 Minuten",
-      link: "/admin/bewertung",
+      link: "/admin/dashboard/bewertung",
     },
     {
       title: "Anzeigen",
       subtitle: "Anzeigen verwalten",
-      link: "/admin/anzeigen",
+      link: "/admin/dashboard/anzeigen",
     },
     {
       title: "Finanzierung",
       subtitle: "Schätze die Höhe deiner Hypothek",
-      link: "/admin/finanzierung",
+      link: "/admin/dashboard/finanzierung",
     },
 
     {
       title: "Konto",
       subtitle: "Persönliche Daten und mehr",
-      link: "/admin/konto",
+      link: "/admin/dashboard/konto",
     },
   ];
   const navigate = useNavigate();
@@ -87,7 +87,10 @@ const Dashboard = () => {
       <footer className="container text-end py-3">
         <Button
           variant="outline-secondary"
-          onClick={() => navigate("/admin/login")}
+          onClick={() => {
+            localStorage.removeItem("token");
+            navigate("/admin/login");
+          }}
         >
           Abmelden
         </Button>

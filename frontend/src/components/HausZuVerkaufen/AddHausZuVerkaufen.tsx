@@ -63,7 +63,7 @@ const AddHausZuVerkaufen = () => {
       rooms: "",
       image: null,
     });
-    navigate("/");
+    navigate("/admin/dashboard");
   };
 
   return (
