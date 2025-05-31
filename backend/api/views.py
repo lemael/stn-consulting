@@ -25,6 +25,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
+from django.contrib.auth import get_user_model
 
 class HausZuVerkaufenViewSet(ModelViewSet):
     queryset = HausZuVerkaufen.objects.all()
@@ -44,3 +45,12 @@ class RegisterView(APIView):
 # Login view (tu peux aussi utiliser TokenObtainPairView directement)
 class LoginView(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
+
+User = get_user_model()
+class ListAdminsView(APIView):
+    permission_classes = [AllowAny]  # ou [AllowAny] si public
+
+    def get(self, request):
+        users = User.objects.all()
+        serializer = RegisterSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
