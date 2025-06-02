@@ -31,6 +31,18 @@ class HausZuVerkaufenViewSet(ModelViewSet):
     queryset = HausZuVerkaufen.objects.all()
     serializer_class = HausZuVerkaufenSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        print("🧨 Suppression de :", instance)
+
+        try:
+            self.perform_destroy(instance)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            print("❌ Erreur lors de la suppression :", e)
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class RegisterView(APIView):
     permission_classes = [AllowAny]
     def post(self, request):

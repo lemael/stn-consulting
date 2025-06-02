@@ -56,26 +56,33 @@ const HausZuVerkaufenList = () => {
   return (
     <div>
       <h2>Immobilien Anzeigen</h2>
-      {hausZuVerkaufens.map((p) => {
-        const safeBilder = Array.isArray(p.bilder)
-          ? p.bilder.filter((b): b is Bild => !!b && !!b.image)
-          : [];
 
-        return (
-          <ImmobilienCard
-            key={p.id}
-            title={p.title}
-            price={`${p.price} €`}
-            zimmer={`${p.rooms} Zimmer`}
-            flaeche={`${p.surface} m²`}
-            adresse={p.address}
-            beschreibung={p.description}
-            images={safeBilder}
-            isAdmin={isAdmin}
-            onDelete={handleDelete}
-          />
-        );
-      })}
+      {hausZuVerkaufens.length === 0 ? (
+        <div className="alert alert-info text-center mt-4">
+          🏠 Es gibt momentan keine Immobilienangebote.
+        </div>
+      ) : (
+        hausZuVerkaufens.map((p) => {
+          const safeBilder = Array.isArray(p.bilder)
+            ? p.bilder.filter((b): b is Bild => !!b && !!b.image)
+            : [];
+
+          return (
+            <ImmobilienCard
+              key={p.id}
+              title={p.title}
+              price={`${p.price} €`}
+              zimmer={`${p.rooms} Zimmer`}
+              flaeche={`${p.surface} m²`}
+              adresse={p.address}
+              beschreibung={p.description}
+              images={safeBilder}
+              isAdmin={isAdmin}
+              onDelete={() => handleDelete(p.id)}
+            />
+          );
+        })
+      )}
     </div>
   );
 };
