@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import ImmobilienCard from "../../components/HausZuVerkaufen/ImmobilienCard";
 
-// Définir l'interface des Maisons à vendre
+type Bild = {
+  id: number;
+  image: string;
+};
+
 interface HausZuVerkaufen {
   id: number;
   title: string;
@@ -10,7 +15,7 @@ interface HausZuVerkaufen {
   address: string;
   surface: number;
   rooms: number;
-  image?: string;
+  bilder: Bild[];
 }
 
 const HausZuVerkaufenList = () => {
@@ -35,26 +40,26 @@ const HausZuVerkaufenList = () => {
 
   return (
     <div>
-      {hausZuVerkaufens.length === 0 ? (
-        <div className="alert alert-info text-center">
-          🏠 Es gibt momentan keine Immobilienangebote.
-        </div>
-      ) : (
-        <div>
-          <h2>Immobilien Anzeigen</h2>
-          {hausZuVerkaufens.map((p) => {
-            console.log("image:", p.image);
-            return (
-              <div key={p.id}>
-                <h3>{p.title}</h3>
-                <p>{p.price} €</p>
+      <h2>Immobilien Anzeigen</h2>
 
-                {p.image && <img src={`${p.image}`} alt="test" />}
-              </div>
-            );
-          })}
-        </div>
-      )}
+      {hausZuVerkaufens.map((p) => {
+        const safeBilder: Bild[] = Array.isArray(p.bilder)
+          ? p.bilder.filter((b): b is Bild => !!b && !!b.image)
+          : [];
+
+        return (
+          <ImmobilienCard
+            key={p.id}
+            title={p.title}
+            price={`${p.price} €`}
+            zimmer={`${p.rooms} Zimmer`}
+            flaeche={`${p.surface} m²`}
+            adresse={p.address}
+            beschreibung={p.description}
+            images={safeBilder}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class HausZuVerkaufen(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -8,10 +9,23 @@ class HausZuVerkaufen(models.Model):
     address = models.CharField(max_length=255)
     surface = models.FloatField()
     rooms = models.IntegerField()
-    image = models.ImageField(upload_to='hausZuVerkaufens/', blank=True, null=True)
 
     def __str__(self):
         return self.title
+
+
+class HausBild(models.Model):
+    haus = models.ForeignKey(
+        HausZuVerkaufen,
+        on_delete=models.CASCADE,
+        related_name='bilder'
+    )
+    image = models.ImageField(upload_to="haus_bilder/")
+
+    def __str__(self):
+        return f"Bild für {self.haus.title}"
+
+    
 
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)  # Ensure email is unique

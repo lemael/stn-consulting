@@ -1,0 +1,100 @@
+import { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+
+type Bild = {
+  id: number;
+  image: string;
+};
+
+interface Props {
+  title: string;
+  price: string;
+  zimmer: string;
+  flaeche: string;
+  adresse: string;
+  images: Bild[];
+  beschreibung: string;
+}
+
+const ImmobilienCard = ({
+  title,
+  price,
+  zimmer,
+  flaeche,
+  adresse,
+  images,
+  beschreibung,
+}: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="border rounded shadow p-3 mb-4 w-75 mx-auto">
+      {/* Top: Hauptbild + Galerie */}
+      <div className="d-flex">
+        <div style={{ display: "flex", gap: 12 }}>
+          {/* Colonne gauche : image principale */}
+          {images[0] && (
+            <img
+              src={images[0].image}
+              alt=""
+              style={{
+                width: 550,
+                height: 620,
+                objectFit: "cover",
+                borderRadius: 8,
+                border: "1px solid #ccc",
+              }}
+            />
+          )}
+
+          {/* Colonne droite : les 2 miniatures */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {images.slice(1, 3).map((img, i) => (
+              <img
+                key={img.id}
+                src={img.image}
+                alt=""
+                style={{
+                  width: 340,
+                  height: 310,
+                  objectFit: "cover",
+                  borderRadius: 6,
+                  border: "1px solid #ccc",
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Titel & Preis */}
+      <div className="mt-3">
+        <h5>{title}</h5>
+        <div className="fw-bold text-dark">{price}</div>
+        <div className="text-muted">
+          {zimmer} · {flaeche}
+        </div>
+        <div className="text-muted">{adresse}</div>
+      </div>
+
+      {/* Toggle Description */}
+      <div className="mt-2">
+        <button
+          className="btn btn-sm btn-light"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Beschreibung umschalten"
+        >
+          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+        </button>
+
+        {isOpen && (
+          <div className="mt-2">
+            <small className="text-secondary">{beschreibung}</small>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ImmobilienCard;
