@@ -69,7 +69,11 @@ const Dashboard = () => {
         <div className="row">
           {cards.map((card, index) => (
             <div key={index} className="col-12 col-sm-6 col-md-4">
-              <Card onClick={() => navigate(card.link)}>
+              <Card
+                onClick={() =>
+                  navigate(card.link, { state: { isAdmin: true } })
+                }
+              >
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <h5 className="card-title mb-0">{card.title}</h5>
                   {card.badge && (

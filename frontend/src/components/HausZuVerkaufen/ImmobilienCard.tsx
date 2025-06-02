@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import CostumerButton from "../../components/CostumerButton";
 
 type Bild = {
   id: number;
@@ -7,6 +8,7 @@ type Bild = {
 };
 
 interface Props {
+  key: number;
   title: string;
   price: string;
   zimmer: string;
@@ -14,9 +16,12 @@ interface Props {
   adresse: string;
   images: Bild[];
   beschreibung: string;
+  isAdmin?: boolean;
+  onDelete?: (id: number) => void;
 }
 
 const ImmobilienCard = ({
+  key,
   title,
   price,
   zimmer,
@@ -24,6 +29,8 @@ const ImmobilienCard = ({
   adresse,
   images,
   beschreibung,
+  isAdmin,
+  onDelete,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -91,6 +98,9 @@ const ImmobilienCard = ({
           <div className="mt-2">
             <small className="text-secondary">{beschreibung}</small>
           </div>
+        )}
+        {isAdmin && (
+          <CostumerButton label="Löschen" onClick={() => onDelete?.(key)} />
         )}
       </div>
     </div>
