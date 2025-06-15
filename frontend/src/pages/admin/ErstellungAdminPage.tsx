@@ -24,6 +24,7 @@ const ErstellungAdminPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.email !== confirmEmail) {
+      console.log(`Email: ${formData.email} confemail: ${confirmEmail}`);
       setMessage("⚠️ Die E-Mail-Adressen stimmen nicht überein.");
       return;
     }
@@ -49,11 +50,17 @@ const ErstellungAdminPage = () => {
         </h2>
         <FormInput
           label="Nom d'utilisateur"
+          name="username"
+          value={formData.username}
+          type="text"
           onChange={handleChange}
           placeholder="username"
         />
         <FormInput
           label="Email"
+          name="email"
+          type="email"
+          value={formData.email}
           onChange={handleChange}
           placeholder="admin@example.com"
         />
@@ -65,6 +72,8 @@ const ErstellungAdminPage = () => {
         />
         <FormInput
           label="Mot de passe"
+          name="password"
+          value={formData.password}
           type="password"
           onChange={handleChange}
           placeholder="••••••••"
