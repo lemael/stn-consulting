@@ -26,6 +26,9 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
+from .models import Kontaktanfrage
+from .serializers import KontaktanfrageSerializer
+from rest_framework import generics
 
 class HausZuVerkaufenViewSet(ModelViewSet):
     queryset = HausZuVerkaufen.objects.all()
@@ -66,3 +69,6 @@ class ListAdminsView(APIView):
         users = User.objects.all()
         serializer = RegisterSerializer(users, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+class KontaktanfrageListCreateView(generics.ListCreateAPIView):
+    queryset = Kontaktanfrage.objects.all().order_by('-timestamp')
+    serializer_class = KontaktanfrageSerializer

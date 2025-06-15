@@ -4,6 +4,7 @@ import HausZuVerkaufenList from "./components/HausZuVerkaufen/HausZuVerkaufenLis
 import PrivateLayout from "./components/PrivateLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AnmeldungAdminPage from "./pages/admin/AnmeldungAdminPage";
+import NachrichtenPage from "./pages/admin/dashboard/NachrichtenPage";
 import ErstellungAdminPage from "./pages/admin/ErstellungAdminPage";
 import Homepage from "./pages/HausZuVerkaufen/Homepage";
 import ImmobilienPage from "./pages/HausZuVerkaufen/ImmobilienPage";
@@ -31,7 +32,7 @@ function App() {
           />
           <Route
             path="/admin/dashboard/nachrichten"
-            element={<div>Nachrichten Page</div>}
+            element={<NachrichtenPage />}
           />
           <Route
             path="/admin/dashboard/bewertung"

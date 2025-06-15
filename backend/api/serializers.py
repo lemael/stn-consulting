@@ -2,6 +2,7 @@
 from rest_framework import serializers
 from .models import HausZuVerkaufen, HausBild
 from django.contrib.auth import get_user_model
+from .models import Kontaktanfrage
 
 class HausBildSerializer(serializers.ModelSerializer):
     class Meta:
@@ -64,3 +65,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])  # très important !
         user.save()
         return user
+    
+
+class KontaktanfrageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Kontaktanfrage
+        fields = '__all__'
