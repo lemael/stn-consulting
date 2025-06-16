@@ -1,10 +1,12 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { Kunde } from "../../types/Kunde";
 
 const ContactForm = () => {
-  const [formData, setFormData] = useState({
-    gender: "Herr",
-    firstName: "",
-    lastName: "",
+  const [formData, setFormData] = useState<Kunde>({
+    gender: "Herr", // ou "Frau"
+    first_name: "",
+    last_name: "",
     email: "",
     phone: "",
   });
@@ -35,7 +37,7 @@ const ContactForm = () => {
     return pattern.test(phone.trim());
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isAdresseStructureValide(adresseSaisie)) {
@@ -54,14 +56,27 @@ const ContactForm = () => {
       return;
     }
 
-    // Valide !
-    setAdresseValide(true);
-    setPhoneValid(true);
-    setMessage("✅ Anfrage erfolgreich übermittelt!");
-    console.log("Form submitted:", {
-      ...formData,
-      adresse: adresseSaisie,
-    });
+    try {
+      console.log("✅ Données envoyées :", {
+        gender: formData.gender,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        phone: formData.phone,
+        adresse: adresseSaisie,
+      });
+      await axios.post("http://127.0.0.1:8000/api/kontaktanfragen/", {
+        ...formData,
+        adresse: adresseSaisie,
+      });
+
+      setAdresseValide(true);
+      setPhoneValid(true);
+      setMessage("✅ Anfrage erfolgreich übermittelt!");
+    } catch (err) {
+      console.error("Fehler beim Senden:", err);
+      setMessage("❌ Fehler beim Versenden der Anfrage.");
+    }
   };
 
   return (
@@ -104,9 +119,9 @@ const ContactForm = () => {
       <div className="mb-3">
         <input
           className="form-control"
-          name="firstName"
+          name="first_name"
           placeholder="Vorname"
-          value={formData.firstName}
+          value={formData.first_name}
           onChange={handleChange}
         />
       </div>
@@ -115,9 +130,9 @@ const ContactForm = () => {
       <div className="mb-3">
         <input
           className="form-control"
-          name="lastName"
+          name="last_name"
           placeholder="Nachname"
-          value={formData.lastName}
+          value={formData.last_name}
           onChange={handleChange}
         />
       </div>

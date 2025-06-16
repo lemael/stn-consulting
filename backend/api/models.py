@@ -36,3 +36,16 @@ class CustomUser(AbstractUser):
         verbose_name = 'Custom User'
     def __str__(self):
         return self.username
+
+
+class Kontaktanfrage(models.Model):
+    gender = models.CharField(max_length=10)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=30, blank=True)
+    adresse = models.CharField(max_length=255)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} ({self.email})"
