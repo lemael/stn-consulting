@@ -1,48 +1,36 @@
 import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import CostumerButton from "../../components/CostumerButton";
-
-type Bild = {
-  id: number;
-  image: string;
-};
+import { HausZuVerkaufen } from "../../types/HausZuVerkaufen";
 
 interface Props {
-  key: number;
-  title: string;
-  price: string;
-  zimmer: string;
-  flaeche: string;
-  adresse: string;
-  images: Bild[];
-  beschreibung: string;
+  haus: HausZuVerkaufen;
   isAdmin?: boolean;
   onDelete?: (id: number) => void;
 }
 
-const ImmobilienCard = ({
-  key,
-  title,
-  price,
-  zimmer,
-  flaeche,
-  adresse,
-  images,
-  beschreibung,
-  isAdmin,
-  onDelete,
-}: Props) => {
+const ImmobilienCard = ({ haus, isAdmin, onDelete }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const ChevronUp = FaChevronUp as unknown as React.FC;
+  const ChevronDown = FaChevronDown as unknown as React.FC;
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/immobilie/${haus.id}`);
+  };
   return (
-    <div className="border rounded shadow p-3 mb-4 w-75 mx-auto">
+    <div
+      className="border rounded shadow p-3 mb-4 w-75 mx-auto"
+      onClick={handleClick}
+      style={{ cursor: "pointer" }}
+    >
       {/* Top: Hauptbild + Galerie */}
       <div className="d-flex">
         <div style={{ display: "flex", gap: 12 }}>
           {/* Colonne gauche : image principale */}
-          {images[0] && (
+          {haus.bilder[0] && (
             <img
-              src={images[0].image}
+              src={haus.bilder[0].image}
               alt=""
               style={{
                 width: 550,
@@ -56,7 +44,7 @@ const ImmobilienCard = ({
 
           {/* Colonne droite : les 2 miniatures */}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {images.slice(1, 3).map((img, i) => (
+            {haus.bilder.slice(1, 3).map((img, i) => (
               <img
                 key={img.id}
                 src={img.image}
@@ -76,12 +64,12 @@ const ImmobilienCard = ({
 
       {/* Titel & Preis */}
       <div className="mt-3">
-        <h5>{title}</h5>
-        <div className="fw-bold text-dark">{price}</div>
+        <h5>{haus.title}</h5>
+        <div className="fw-bold text-dark">{haus.price} €</div>
         <div className="text-muted">
-          {zimmer} · {flaeche}
+          {haus.rooms} Zimmer · {haus.surface} m²
         </div>
-        <div className="text-muted">{adresse}</div>
+        <div className="text-muted">{haus.address}</div>
       </div>
 
       {/* Toggle Description */}
@@ -91,16 +79,16 @@ const ImmobilienCard = ({
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Beschreibung umschalten"
         >
-          {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+          {isOpen ? <ChevronUp /> : <ChevronDown />}
         </button>
 
         {isOpen && (
           <div className="mt-2">
-            <small className="text-secondary">{beschreibung}</small>
+            <small className="text-secondary">{haus.description}</small>
           </div>
         )}
         {isAdmin && (
-          <CostumerButton label="Löschen" onClick={() => onDelete?.(key)} />
+          <CostumerButton label="Löschen" onClick={() => onDelete?.(haus.id)} />
         )}
       </div>
     </div>

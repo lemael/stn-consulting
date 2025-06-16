@@ -6,13 +6,14 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AnmeldungAdminPage from "./pages/admin/AnmeldungAdminPage";
 import ErstellungAdminPage from "./pages/admin/ErstellungAdminPage";
 import Homepage from "./pages/HausZuVerkaufen/Homepage";
+import ImmobilienPage from "./pages/HausZuVerkaufen/ImmobilienPage";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Homepage />} />
-
+        <Route path="/immobilie/:key" element={<ImmobilienPage />} />
         <Route path="/admin/login" element={<AnmeldungAdminPage />} />
 
         <Route path="/admin" element={<AnmeldungAdminPage />} />

@@ -2,22 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import ImmobilienCard from "../../components/HausZuVerkaufen/ImmobilienCard";
-
-type Bild = {
-  id: number;
-  image: string;
-};
-
-interface HausZuVerkaufen {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  address: string;
-  surface: number;
-  rooms: number;
-  bilder: Bild[];
-}
+import { HausZuVerkaufen } from "../../types/HausZuVerkaufen";
 
 const HausZuVerkaufenList = () => {
   const [hausZuVerkaufens, setHausZuVerkaufens] = useState<HausZuVerkaufen[]>(
@@ -63,20 +48,9 @@ const HausZuVerkaufenList = () => {
         </div>
       ) : (
         hausZuVerkaufens.map((p) => {
-          const safeBilder = Array.isArray(p.bilder)
-            ? p.bilder.filter((b): b is Bild => !!b && !!b.image)
-            : [];
-
           return (
             <ImmobilienCard
-              key={p.id}
-              title={p.title}
-              price={`${p.price} €`}
-              zimmer={`${p.rooms} Zimmer`}
-              flaeche={`${p.surface} m²`}
-              adresse={p.address}
-              beschreibung={p.description}
-              images={safeBilder}
+              haus={p}
               isAdmin={isAdmin}
               onDelete={() => handleDelete(p.id)}
             />
