@@ -18,7 +18,8 @@ Die Plattform ermöglicht es den Nutzern, **aktuelle Mietangebote zu durchsuchen
 ## 🚀 Projektvorschau
 
 🎥 Eine Demo-Video-Vorschau ist bald hier verfügbar:  
-➡️ [link video](https://youtu.be/fylWfu8mzCw)
+[![Video ansehen](https://img.youtube.com/vi/fylWfu8mzCw/0.jpg)](https://www.youtube.com/watch?v=fylWfu8mzCw)
+
 
 ---
 
