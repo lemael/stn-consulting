@@ -29,6 +29,7 @@ from django.contrib.auth import get_user_model
 from .models import Kontaktanfrage
 from .serializers import KontaktanfrageSerializer
 from rest_framework import generics
+from django.shortcuts import render
 
 class HausZuVerkaufenViewSet(ModelViewSet):
     queryset = HausZuVerkaufen.objects.all()
@@ -72,3 +73,6 @@ class ListAdminsView(APIView):
 class KontaktanfrageListCreateView(generics.ListCreateAPIView):
     queryset = Kontaktanfrage.objects.all().order_by('-timestamp')
     serializer_class = KontaktanfrageSerializer
+
+def index(request):
+    return render(request, "index.html")

@@ -31,14 +31,15 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = [
-                'stn-consulting.fly.dev',
+                "stn-consulting.fly.dev",
+                '0.0.0.0',
                 '127.0.0.1',
                 "localhost",
                 "localhost:3000",
     ]
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend_build/static'),
+    os.path.join(BASE_DIR, 'frontend_build', 'build', 'static'),
 ]
 
 
@@ -68,6 +69,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,7 +84,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS':[os.path.join(BASE_DIR, 'frontend_build')],
+        'DIRS':[os.path.join(BASE_DIR,'frontend_build', 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -155,7 +157,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'frontend_build')]
+TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'frontend_build', 'build')]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
